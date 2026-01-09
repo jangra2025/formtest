@@ -22,4 +22,12 @@ class Common
         $result = $connection->query($query) or die("Error in  Query" . $connection->error);
         return $result;
     }
+
+    public function getPincodeByCity($connection, $city_id)
+    {
+        $query = "SELECT * FROM pincodes WHERE city_id='$city_id'";
+        $result = $connection->query($query) or die("Error in  Query" . $connection->error);
+        return $result;
+    }
 }
+

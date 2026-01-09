@@ -20,4 +20,13 @@ if (isset($_POST['action'])) {
             echo '<option value="' . $row['id'] . '">' . $row['city_name'] . '</option>';
         }
     }
+
+     if ($_POST['action'] == 'getpincode' && isset($_POST['cityId'])) {
+        $cityId = intval($_POST['cityId']);
+        $result = $connection->query("SELECT * FROM pincodes WHERE city_id=$cityId");
+        echo '<option value="">Select Pincode</option>';
+        while ($row = $result->fetch_assoc()) {
+            echo '<option value="' . $row['id'] . '">' . $row['pincode'] . '</option>';
+        }
+    }
 }

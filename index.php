@@ -35,6 +35,10 @@
                 <option value="">Select City</option>
             </select>
 
+            <label>pincode</label>
+            <select name="pincode" id="pincodeId" class="form-control">
+                <option value="">Select Pincode</option>
+            </select>
 
 
             <input type="submit" name="submit" value="Submit" class="btn btn-success" style="margin-top:10px;">
@@ -87,7 +91,42 @@
                 }
             });
 
+            $('#cityId').change(function() {
+                var stateId = $(this).val();
+                $('#pincodeId').html('<option>Loading...</option>');
 
+                if (stateId != '') {
+                    $.ajax({
+                        url: 'ajax.php',
+                        method: 'POST',
+                        data: {
+                            action: 'getpincode',
+                            cityId: cityId
+                        },
+                        success: function(data) {
+                            $('#pincodeId').html(data);
+                        }
+                    });
+                } else {
+                    $('#pincodeId').html('<option value="">Select pincode</option>');
+                }
+            });
+            //             $('#city').change(function() {
+            //     var city_id = $(this).val();
+            //     $('#pincode').html('<option>Loading...</option>');
+
+            //     $.ajax({
+            //         url: 'get_pincode.php',  
+            //         method: 'POST',
+            //         data: {city_id: city_id},
+            //         success: function(response) {
+            //             $('#pincode').html(response);  
+            //         },
+            //         error: function() {
+            //             $('#pincode').html('<option>Error loading pincodes</option>');
+            //         }
+            //     });
+            // });
 
         });
     </script>
