@@ -24,6 +24,11 @@
                 }
                 ?>
             </select>
+            <label>phone no.</label>
+            <select name="phone" id="phone" class="form-control">
+                <option value="">Select Phone no.</option>
+            </select>
+
 
             <label>State</label>
             <select name="states" id="stateId" class="form-control">
@@ -46,73 +51,83 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+      $(document).ready(function() {
 
-            $('#countryId').change(function() {
-                var countryId = $(this).val();
-                $('#stateId').html('<option>Loading...</option>');
-                $('#cityId').html('<option value="">Select City</option>');
+    $('#countryId').change(function() {
+        var countryId = $(this).val();
 
-                if (countryId != '') {
-                    $.ajax({
-                        url: 'ajax.php',
-                        method: 'POST',
-                        data: {
-                            action: 'getStates',
-                            countryId: countryId
-                        },
-                        success: function(data) {
-                            $('#stateId').html(data);
-                        }
-                    });
-                } else {
-                    $('#stateId').html('<option value="">Select State</option>');
+        $('#phone').html('<option>Loading...</option>');
+        $('#stateId').html('<option>Loading...</option>');
+        $('#cityId').html('<option value="">Select City</option>');
+        $('#pincodeId').html('<option value="">Select Pincode</option>');
+
+        if (countryId != '') {
+
+            $.ajax({
+                url: 'ajax.php',
+                method: 'POST',
+                data: { action: 'getphone_code', countryId: countryId },
+                success: function(data) {
+                    $('#phone').html(data);
                 }
             });
 
-            $('#stateId').change(function() {
-                var stateId = $(this).val();
-                $('#cityId').html('<option>Loading...</option>');
-
-                if (stateId != '') {
-                    $.ajax({
-                        url: 'ajax.php',
-                        method: 'POST',
-                        data: {
-                            action: 'getCities',
-                            stateId: stateId
-                        },
-                        success: function(data) {
-                            $('#cityId').html(data);
-                        }
-                    });
-                } else {
-                    $('#cityId').html('<option value="">Select City</option>');
+            $.ajax({
+                url: 'ajax.php',
+                method: 'POST',
+                data: { action: 'getStates', countryId: countryId },
+                success: function(data) {
+                    $('#stateId').html(data);
                 }
             });
 
-            $('#cityId').change(function() {
-                var cityId = $(this).val();
-                $('#pincodeId').html('<option>Loading...</option>');
+        } else {
+            $('#phone').html('<option value="">Select Phone no.</option>');
+            $('#stateId').html('<option value="">Select State</option>');
+            $('#cityId').html('<option value="">Select City</option>');
+            $('#pincodeId').html('<option value="">Select Pincode</option>');
+        }
+    });
 
-                if (cityId != '') {
-                    $.ajax({
-                        url: 'ajax.php',
-                        method: 'POST',
-                        data: {
-                            action: 'getPincode',
-                            cityId: cityId
-                        },
-                        success: function(data) {
-                            $('#pincodeId').html(data);
-                        }
-                    });
-                } else {
-                    $('#pincodeId').html('<option value="">Select Pincode</option>');
+    $('#stateId').change(function() {
+        var stateId = $(this).val();
+        $('#cityId').html('<option>Loading...</option>');
+        $('#pincodeId').html('<option value="">Select Pincode</option>');
+
+        if (stateId != '') {
+            $.ajax({
+                url: 'ajax.php',
+                method: 'POST',
+                data: { action: 'getCities', stateId: stateId },
+                success: function(data) {
+                    $('#cityId').html(data);
                 }
             });
+        } else {
+            $('#cityId').html('<option value="">Select City</option>');
+        }
+    });
 
-        });
+    $('#cityId').change(function() {
+        var cityId = $(this).val();
+        $('#pincodeId').html('<option>Loading...</option>');
+
+        if (cityId != '') {
+            $.ajax({
+                url: 'ajax.php',
+                method: 'POST',
+                data: { action: 'getPincode', cityId: cityId },
+                success: function(data) {
+                    $('#pincodeId').html(data);
+                }
+            });
+        } else {
+            $('#pincodeId').html('<option value="">Select Pincode</option>');
+        }
+    });
+
+});
+
     </script>
 </body>
 

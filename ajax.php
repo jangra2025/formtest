@@ -2,6 +2,14 @@
 include "config.php";
 
 if (isset($_POST['action'])) {
+    if ($_POST['action'] == 'getphone_code' && isset($_POST['countryId'])) {
+        $countryId = intval($_POST['countryId']);
+        $result = $connection->query("SELECT * FROM phone WHERE country_id=$countryId");
+        echo '<option value="">Select phone</option>';
+        while ($row = $result->fetch_assoc()) {
+            echo '<option value="' . $row['id'] . '">' . $row['phone_code'] . '</option>';
+        }
+    }
 
     if ($_POST['action'] == 'getStates' && isset($_POST['countryId'])) {
         $countryId = intval($_POST['countryId']);

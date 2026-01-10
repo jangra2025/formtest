@@ -9,6 +9,13 @@ class Common
         return $result1;
     }
 
+    public function getphoneByCountry($connection, $country_id)
+    {
+        $query = "SELECT * FROM phone WHERE country_id='$country_id'";
+        $result = $connection->query($query) or die("Error in  Query" . $connection->error);
+        return $result;
+    }
+
     public function getStateByCountry($connection, $country_id)
     {
         $query = "SELECT * FROM states WHERE country_id='$country_id'";
