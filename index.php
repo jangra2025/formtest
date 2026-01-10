@@ -92,15 +92,15 @@
             });
 
             $('#cityId').change(function() {
-                var stateId = $(this).val();
+                var cityId = $(this).val();
                 $('#pincodeId').html('<option>Loading...</option>');
 
-                if (stateId != '') {
+                if (cityId != '') {
                     $.ajax({
                         url: 'ajax.php',
                         method: 'POST',
                         data: {
-                            action: 'getpincode',
+                            action: 'getPincode',
                             cityId: cityId
                         },
                         success: function(data) {
@@ -108,25 +108,9 @@
                         }
                     });
                 } else {
-                    $('#pincodeId').html('<option value="">Select pincode</option>');
+                    $('#pincodeId').html('<option value="">Select Pincode</option>');
                 }
             });
-            //             $('#city').change(function() {
-            //     var city_id = $(this).val();
-            //     $('#pincode').html('<option>Loading...</option>');
-
-            //     $.ajax({
-            //         url: 'get_pincode.php',  
-            //         method: 'POST',
-            //         data: {city_id: city_id},
-            //         success: function(response) {
-            //             $('#pincode').html(response);  
-            //         },
-            //         error: function() {
-            //             $('#pincode').html('<option>Error loading pincodes</option>');
-            //         }
-            //     });
-            // });
 
         });
     </script>

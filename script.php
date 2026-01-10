@@ -3,7 +3,7 @@ if (isset($_POST['submit'])) {
     $country = $_POST['country'];
     $state   = $_POST['states'];
     $city    = $_POST['city'];
-    $pincode    = $_POST['pincodes'];
+    $pincode    = $_POST['pincode'];
 
     echo 'Country is : ' . $country . '<br/>';
     echo 'State is   : ' . $state . '<br/>';
